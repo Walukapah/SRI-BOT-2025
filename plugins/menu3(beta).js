@@ -20,13 +20,6 @@ async(conn, mek, m, { from }) => {
                         body: {
                             text: "PRABATH-MD-BETA_PUBLIC\n+234 816 597 5051, +254 799 073744, +263 78 0...\n\nShare: 451\nViews: 428656"
                         },
-                        footer: {
-                            text: "Select an option below"
-                        },
-                        header: {
-                            title: "MAIN MENU",
-                            hasMediaAttachment: false
-                        },
                         nativeFlowMessage: {
                             buttons: [
                                 {
