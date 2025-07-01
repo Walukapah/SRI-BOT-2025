@@ -189,7 +189,26 @@ if (mek.key && mek.key.remoteJid === 'status@broadcast') {
   const content = JSON.stringify(mek.message)
   const from = mek.key.remoteJid
   const quoted = type == 'extendedTextMessage' && mek.message.extendedTextMessage.contextInfo != null ? mek.message.extendedTextMessage.contextInfo.quotedMessage || [] : []
-  const body = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : (type == 'imageMessage') && mek.message.imageMessage.caption ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption ? mek.message.videoMessage.caption : ''
+  const body = (type === 'conversation') 
+  ? mek.message.conversation 
+  : (type === 'extendedTextMessage') 
+    ? mek.message.extendedTextMessage.text 
+    : (type === 'imageMessage') && mek.message.imageMessage.caption 
+      ? mek.message.imageMessage.caption 
+      : (type === 'videoMessage') && mek.message.videoMessage.caption 
+        ? mek.message.videoMessage.caption 
+        : (type === 'buttonsResponseMessage')
+          ? mek.message.buttonsResponseMessage.selectedButtonId
+          : (type === 'listResponseMessage')
+            ? mek.message.listResponseMessage.title
+            : (type === 'interactiveResponseMessage')
+              ? mek.message.interactiveResponseMessage?.nativeFlowResponseMessage?.paramsJson 
+                ? JSON.parse(mek.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson).response 
+                : mek.message.interactiveResponseMessage?.buttonReply?.buttonId 
+                  ? mek.message.interactiveResponseMessage.buttonReply.buttonId
+                  : ''
+            : '';
+    
   const isCmd = body.startsWith(prefix)
   var budy = typeof mek.text == 'string' ? mek.text : false;
   const command = isCmd ? body.slice(prefix.length).trim().split(' ').shift().toLowerCase() : ''
