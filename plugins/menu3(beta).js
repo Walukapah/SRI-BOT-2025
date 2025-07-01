@@ -16,18 +16,18 @@ async(conn, mek, m, { from }) => {
             viewOnceMessage: {
                 message: {
                     
-                    interactiveMessage: proto.Message.InteractiveMessage.create({
-                        body: proto.Message.InteractiveMessage.Body.create({
+                    interactiveMessage: {
+                        body: {
                             text: "PRABATH-MD-BETA_PUBLIC\n+234 816 597 5051, +254 799 073744, +263 78 0...\n\nShare: 451\nViews: 428656"
-                        }),
-                        footer: proto.Message.InteractiveMessage.Footer.create({
+                        },
+                        footer: {
                             text: "Select an option below"
-                        }),
-                        header: proto.Message.InteractiveMessage.Header.create({
+                        },
+                        header: {
                             title: "MAIN MENU",
                             hasMediaAttachment: false
-                        }),
-                        nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+                        },
+                        nativeFlowMessage: {
                             buttons: [
                                 {
                                     name: "quick_reply",
@@ -93,8 +93,8 @@ async(conn, mek, m, { from }) => {
                                     })
                                 }
                             ]
-                        })
-                    })
+                        }
+                    }
                 }
             }
         }, {});
