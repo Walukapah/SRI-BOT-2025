@@ -201,13 +201,15 @@ if (mek.key && mek.key.remoteJid === 'status@broadcast') {
           ? mek.message.buttonsResponseMessage.selectedButtonId
           : (type === 'listResponseMessage')
             ? mek.message.listResponseMessage.title
-            : (type === 'interactiveResponseMessage')
-              ? mek.message.interactiveResponseMessage?.nativeFlowResponseMessage?.paramsJson 
-                ? JSON.parse(mek.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson).response 
-                : mek.message.interactiveResponseMessage?.buttonReply?.buttonId 
-                  ? mek.message.interactiveResponseMessage.buttonReply.buttonId
-                  : ''
-            : '';
+            : (type === 'templateButtonReplyMessage')
+              ? mek.message.templateButtonReplyMessage.selectedId
+              : (type === 'interactiveResponseMessage')
+                ? mek.message.interactiveResponseMessage?.nativeFlowResponseMessage?.paramsJson 
+                  ? JSON.parse(mek.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson).response 
+                  : mek.message.interactiveResponseMessage?.buttonReply?.buttonId 
+                    ? mek.message.interactiveResponseMessage.buttonReply.buttonId
+                    : ''
+                : '';
     
   const isCmd = body.startsWith(prefix)
   var budy = typeof mek.text == 'string' ? mek.text : false;
