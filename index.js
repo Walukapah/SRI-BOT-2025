@@ -129,17 +129,17 @@ const green = "\x1b[32m";
 const blue = "\x1b[34m";
 const cyan = "\x1b[36m";
 const bold = "\x1b[1m";
-/**
+
 console.log(red + "☰".repeat(32) + reset);
 console.log(green + bold + "New Message Detected:" + reset);
 console.log(cyan + JSON.stringify(mek, null, 2) + reset);
 console.log(red + "☰".repeat(32) + reset);
-**/
+
 // Auto mark as seen (දැකියි)
 if (config.MARK_AS_SEEN === 'true') {
     try {
         await conn.sendReadReceipt(mek.key.remoteJid, mek.key.id, [mek.key.participant || mek.key.remoteJid]);
-        console.log(green + `Marked message from ${mek.key.remoteJid} as seen.` + reset);
+        console.log(blue + `Marked message from ${mek.key.remoteJid} as seen.` + reset);
     } catch (error) {
         console.error(red + "Error marking message as seen:", error + reset);
     }
@@ -149,7 +149,7 @@ if (config.MARK_AS_SEEN === 'true') {
 if (config.READ_MESSAGE === 'true') {
     try {
         await conn.readMessages([mek.key]);
-        console.log(green + `Marked message from ${mek.key.remoteJid} as read.` + reset);
+        console.log(cyan + `Marked message from ${mek.key.remoteJid} as read.` + reset);
     } catch (error) {
         console.error(red + "Error marking message as read:", error + reset);
     }
