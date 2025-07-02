@@ -25,22 +25,22 @@ async(conn, mek, m, { from }) => {
                                 {
                                     name: "quick_reply",
                                     buttonParamsJson: JSON.stringify({
-                                        display_text: "AI MENU",
-                                        id: ".aimenu"
+                                        display_text: "MAIN MENU",
+                                        id: ".menu"
                                     })
                                 },
                                 {
                                     name: "quick_reply",
                                     buttonParamsJson: JSON.stringify({
-                                        display_text: "SEARCH MENU",
-                                        id: ".searchmenu"
+                                        display_text: "MAIN MENU 2",
+                                        id: ".menu2"
                                     })
                                 },
                                 {
                                     name: "quick_reply",
                                     buttonParamsJson: JSON.stringify({
-                                        display_text: "DOWNLOAD MENU",
-                                        id: ".downloadmenu"
+                                        display_text: "MAIN MENU 3",
+                                        id: ".menu3"
                                     })
                                 },
                                 {
