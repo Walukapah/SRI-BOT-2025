@@ -190,37 +190,53 @@ if (mek.key && mek.key.remoteJid === 'status@broadcast') {
   const from = mek.key.remoteJid
   const quoted = type == 'extendedTextMessage' && mek.message.extendedTextMessage.contextInfo != null ? mek.message.extendedTextMessage.contextInfo.quotedMessage || [] : []
   
-  const body = (type === 'conversation') 
-  ? mek.message.conversation 
-  : (type === 'extendedTextMessage') 
-    ? mek.message.extendedTextMessage.text 
-    : (type === 'imageMessage') && mek.message.imageMessage.caption 
-      ? mek.message.imageMessage.caption 
-      : (type === 'videoMessage') && mek.message.videoMessage.caption 
-        ? mek.message.videoMessage.caption 
-        : (type === 'buttonsResponseMessage')
-          ? mek.message.buttonsResponseMessage.selectedButtonId
-          : (type === 'listResponseMessage')
-            ? mek.message.listResponseMessage.title
-            : (type === 'templateButtonReplyMessage')
-              ? mek.message.templateButtonReplyMessage.selectedId
-              : (type === 'interactiveResponseMessage')
-                ? mek.message.interactiveResponseMessage?.nativeFlowResponseMessage?.paramsJson 
-                  ? JSON.parse(mek.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson).id 
-                  : mek.message.interactiveResponseMessage?.buttonReply?.buttonId 
-                    ? mek.message.interactiveResponseMessage.buttonReply.buttonId
-                    : ''
-                : (type === 'messageContextInfo')
-                  ? mek.message.buttonsResponseMessage?.selectedButtonId ||
-                    mek.message.listResponseMessage?.singleSelectReply?.selectedRowId ||
-                    (mek.message.interactiveResponseMessage?.nativeFlowResponseMessage?.paramsJson 
-                      ? JSON.parse(mek.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson).id
-                      : '')
-                  : (type === 'senderKeyDistributionMessage')
-                    ? mek.message.conversation || 
-                      mek.message.imageMessage?.caption ||
-                      ''
-                    : '';
+  const body = (() => {
+    if (type === 'conversation') 
+        return mek.message.conversation;
+
+    if (type === 'extendedTextMessage') 
+        return mek.message.extendedTextMessage.text;
+
+    if (type === 'imageMessage' && mek.message.imageMessage.caption) 
+        return mek.message.imageMessage.caption;
+
+    if (type === 'videoMessage' && mek.message.videoMessage.caption) 
+        return mek.message.videoMessage.caption;
+
+    if (type === 'buttonsResponseMessage') 
+        return mek.message.buttonsResponseMessage.selectedButtonId;
+
+    if (type === 'listResponseMessage') 
+        return mek.message.listResponseMessage.title;
+
+    if (type === 'templateButtonReplyMessage') 
+        return mek.message.templateButtonReplyMessage.selectedId;
+
+    if (type === 'interactiveResponseMessage') {
+        if (mek.message.interactiveResponseMessage?.nativeFlowResponseMessage?.paramsJson) {
+            const params = JSON.parse(mek.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson);
+            return params?.id || '';
+        }
+        if (mek.message.interactiveResponseMessage?.buttonReply?.buttonId) {
+            return mek.message.interactiveResponseMessage.buttonReply.buttonId;
+        }
+        return '';
+    }
+
+    if (type === 'messageContextInfo') {
+        return mek.message.buttonsResponseMessage?.selectedButtonId ||
+               mek.message.listResponseMessage?.singleSelectReply?.selectedRowId ||
+               (mek.message.interactiveResponseMessage?.nativeFlowResponseMessage?.paramsJson
+                   ? JSON.parse(mek.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson).id
+                   : '');
+    }
+
+    if (type === 'senderKeyDistributionMessage') {
+        return mek.message.conversation || mek.message.imageMessage?.caption || '';
+    }
+
+    return '';
+})();
     
   const isCmd = body.startsWith(prefix)
   var budy = typeof mek.text == 'string' ? mek.text : false;
