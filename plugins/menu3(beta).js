@@ -18,7 +18,7 @@ async(conn, mek, m, { from }) => {
                     
                     interactiveMessage: {
                         body: {
-                            text: "PRABATH-MD-BETA_PUBLIC\n+234 816 597 5051, +254 799 073744, +263 78 0...\n\nShare: 451\nViews: 428656"
+                            text: "SRIBOT 🇱🇰"
                         },
                         nativeFlowMessage: {
                             buttons: [
