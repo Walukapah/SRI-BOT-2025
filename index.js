@@ -203,22 +203,17 @@ if (mek.key && mek.key.remoteJid === 'status@broadcast') {
           : (type === 'listResponseMessage')
             ? mek.message.listResponseMessage.title
             : (type === 'templateButtonReplyMessage')
-              ? mek.message.templateButtonReplyMessage.selectedId
-              : (type === 'interactiveMessage') // WhatsApp Business API (Interactive Messages)
-                ? mek.message.interactiveMessage?.button_reply?.id 
-                  ? mek.message.interactiveMessage.button_reply.id 
-                  : mek.message.interactiveMessage?.list_reply?.id 
-                    ? mek.message.interactiveMessage.list_reply.id 
-                    : ''
-              : (type === 'interactiveResponseMessage') // Legacy WhatsApp
-                ? mek.message.interactiveResponseMessage?.nativeFlowResponseMessage?.paramsJson 
-                  ? JSON.parse(mek.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson).id 
-                  : mek.message.interactiveResponseMessage?.buttonReply?.buttonId 
-                    ? mek.message.interactiveResponseMessage.buttonReply.buttonId
-                    : ''
+              ? mek.message.templateButtonReplyMessage.selectedId || 
+                mek.message.templateButtonReplyMessage.selectedDisplayText
+              : (type === 'interactiveResponseMessage')
+                ? mek.message.interactiveResponseMessage?.body?.text ||
+                  (mek.message.interactiveResponseMessage?.nativeFlowResponseMessage?.paramsJson 
+                    ? JSON.parse(mek.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson).id 
+                    : mek.message.interactiveResponseMessage?.buttonReply?.buttonId || '')
                 : (type === 'messageContextInfo')
                   ? mek.message.buttonsResponseMessage?.selectedButtonId ||
                     mek.message.listResponseMessage?.singleSelectReply?.selectedRowId ||
+                    mek.message.interactiveResponseMessage?.body?.text ||
                     (mek.message.interactiveResponseMessage?.nativeFlowResponseMessage?.paramsJson 
                       ? JSON.parse(mek.message.interactiveResponseMessage.nativeFlowResponseMessage.paramsJson).id
                       : '')
