@@ -11,7 +11,7 @@
   "author": "WalukaPahan",
   "license": "GPL-3.0 license",
   "dependencies": {
-    "@whiskeysockets/baileys": "git+https://gitlab.com/amilaKumara/baileys-pmd.git",
+    "@whiskeysockets/baileys": "github:shizo-devs/baileys",
     "@adiwajshing/keyed-db": "^0.2.4",
     "@viper-x/fancytext": "^1.0.2",
     "maher-zubair-baileys": "^6.6.5",
