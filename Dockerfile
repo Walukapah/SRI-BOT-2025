@@ -1,6 +1,6 @@
 FROM node:18-alpine
 
-# Install system dependencies including git and openssh-client
+# Install system dependencies including git
 RUN apk add --no-cache \
     python3 \
     make \
@@ -9,11 +9,7 @@ RUN apk add --no-cache \
     jpeg-dev \
     pango-dev \
     giflib-dev \
-    git \
-    openssh-client
-
-# Configure git to use HTTPS instead of SSH
-RUN git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
+    git
 
 WORKDIR /app
 COPY package*.json ./
