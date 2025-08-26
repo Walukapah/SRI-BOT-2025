@@ -1,6 +1,6 @@
 FROM node:18-alpine
 
-# Install system dependencies including git
+# Install system dependencies including git + ssh
 RUN apk add --no-cache \
     python3 \
     make \
@@ -9,7 +9,8 @@ RUN apk add --no-cache \
     jpeg-dev \
     pango-dev \
     giflib-dev \
-    git
+    git \
+    openssh
 
 WORKDIR /app
 COPY package*.json ./
